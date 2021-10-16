@@ -2,21 +2,21 @@ import React from 'react';
 import './App.css';
 import DailyWeather from './components/daily-weather/daily-weather.component';
 import Modal from './components/modal/modal.component';
-import Weather from './components/weather/weather.component';
+import CurrentWeather from './components/currrent-weather/current-weather.component';
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      weather: {}
+      weather: {},
+      isModalShown: true,
+      modalText: 'Please Wait...'
     }
   }
 
   API_Key = '19ffda1a93323f52e689caab91528bf8';
   units = 'metric';
-  isModalShown = true;
-  modalText = 'Please Wait...';
 
   async getWeather(coords) {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly,alerts&appid=${this.API_Key}&units=${this.units}`);
@@ -27,35 +27,36 @@ class App extends React.Component {
     if (data.error_message) {
       throw new Error(data.error_message);
     }
+    console.log(data);
     return data;
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      async (successResult) => {
+        const coordinates = {
+          lat: successResult.coords.latitude,
+          lon: successResult.coords.longitude
+        }
+        this.setState({
+          weather: await this.getWeather(coordinates)
+        })
+        this.setState({ isModalShown: false });
+      },
+      error => {
+        this.setState({ modalText: 'Error! ' + error.message })
+      }
+    );
   }
 
   render() {
     return (
       <div className="App">
-        <Modal isShown={this.isModalShown} text={this.modalText} />
-        <Weather />
+        <Modal isShown={this.state.isModalShown} text={this.state.modalText} />
+        <CurrentWeather current={this.state.weather.current} />
         <DailyWeather />
       </div>
     );
-  }
-
-  componentDidMount() {
-    // navigator.geolocation.getCurrentPosition(
-    //   async (successResult) => {
-    //     const coordinates = {
-    //       lat: successResult.coords.latitude,
-    //       lon: successResult.coords.longitude
-    //     }
-    //     this.setState({
-    //       weather: await this.getWeather(coordinates)
-    //     })
-    //     this.isModalShown = false;
-    //   },
-    //   error => {
-    //     this.modalText = 'Error! ' + error.message;
-    //   }
-    // );
   }
 }
 
