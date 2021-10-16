@@ -54,7 +54,7 @@ class App extends React.Component {
       <div className="App">
         <Modal isShown={this.state.isModalShown} text={this.state.modalText} />
         <CurrentWeather current={this.state.weather.current} />
-        <DailyWeather />
+        <DailyWeather daily={this.state.weather.daily} />
       </div>
     );
   }

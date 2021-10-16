@@ -2,16 +2,12 @@ import React from 'react';
 
 import './daily-weather-card.styles.scss';
 
-const DailyWeatherCard = () => (
+const DailyWeatherCard = ({ date, imgSrc, degree, text }) => (
   <div className="card">
-    <p className="date">Today</p>
-    <img
-      src="http://openweathermap.org/img/w/03d.png"
-      alt="cloudy"
-      className="daily-img"
-    />
-    <p className="degree">21°</p>
-    <p className="text">Partly Cloudy</p>
+    <p className="date">{date}</p>
+    <img src={imgSrc} alt="cloudy" className="daily-img" />
+    <p className="degree">{degree}</p>
+    <p className="text">{text}</p>
   </div>
 );
 
