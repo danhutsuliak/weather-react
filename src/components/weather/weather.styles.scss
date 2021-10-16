@@ -1,0 +1,46 @@
+.weather {
+  margin: auto;
+  padding-top: 50px;
+  width: 430px;
+  height: 300px;
+
+  h2 {
+    font-weight: 400;
+    font-size: 48px;
+    margin: auto;
+  }
+
+  .weather-value-container {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      display: block;
+    }
+
+    .main-img {
+      width: 124px;
+      height: 124px;
+      margin-top: 25px;
+    }
+
+    .degree {
+      font-size: 144px;
+      display: inline;
+      margin-right: auto;
+    }
+
+    .cel-fahr-container {
+      // margin-left: auto;
+
+      .celsius {
+        font-size: 48px;
+      }
+
+      .fahrenheit {
+        font-size: 36px;
+        color: #dadada;
+      }
+    }
+  }
+}

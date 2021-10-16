@@ -1,0 +1,24 @@
+.daily {
+  margin: auto;
+  width: 1470px;
+  height: 292px;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  width: 1470px;
+  height: 230px;
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .daily {
+    width: 85%;
+    height: 302px;
+  }
+
+  .card-wrapper {
+    overflow-x: scroll;
+  }
+}
